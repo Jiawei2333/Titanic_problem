@@ -17,7 +17,7 @@ df_train = df1[columns_to_keep + ['Survived']].dropna()
 df_test = df2[columns_to_keep].dropna()
 
 ## one-hot-encoding of `categorical` columns
-columns_to_encode = ['Gender', 'Cabin']
+columns_to_encode = ['Sex', 'Embarked'] # Change ['Gender', 'Cabin'] to ['Sex', 'Embarked']. Cabin is dropped before
 df_train = pd.get_dummies(df_train, columns_to_encode)
 df_test = pd.get_dummies(df_test, columns_to_encode)
 
