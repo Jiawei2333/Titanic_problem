@@ -78,7 +78,7 @@ print("AUC of Random Forest Classifier by cross validation is {0:.3f} +- {1:.3f}
 # Gradient Boosting
 from sklearn.ensemble import GradientBoostingClassifier
 
-gb_clf = GradientBoostingClassifier()
+gb_clf = GradientBoostingClassifier(max_depth = 2, learning_rate = 0.1, random_state = 0)
 gb_clf.fit(X_train, y_train)
 
 predictions_train_gb = gb_clf.predict_proba(X_train)[:,1]
