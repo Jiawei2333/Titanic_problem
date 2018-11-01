@@ -46,3 +46,45 @@ print("AUC is {0}".format(score))
 scores = cross_val_score(model, X_train, y_train, scoring='roc_auc', cv=5)
 mean, std = scores.mean(), scores.std()
 print("AUC by cross validation is {0:.3f} +- {1:.3f}".format(mean, std))
+
+
+# Decition Tree
+from sklearn.tree import DecisionTreeClassifier
+
+dt_clf = DecisionTreeClassifier().fit(X_train, y_train)
+print("Acurracy is {0}".format(dt_clf.score(X_train, y_train)))
+predictions_train_dr = dt_clf.predict_proba(X_train)[:,1]
+score_dt = roc_auc_score(y_train, predictions_train_dr)
+print("AUC of Decision Tree Classifier is {0}".format(score_dt))
+
+scores_dt = cross_val_score(dt_clf, X_train, y_train, scoring='roc_auc', cv=5)
+mean_dt, std_dt = scores_dt.mean(), scores_dt.std()
+print("AUC of Decision Tree Classifier by cross validation is {0:.3f} +- {1:.3f}".format(mean, std))
+
+# Random Forest
+from sklearn.ensemble import RandomForestClassifier
+
+rf_clf = RandomForestClassifier(random_state = 0)
+rf_clf.fit(X_train, y_train)
+
+predictions_train_rf = rf_clf.predict_proba(X_train)[:,1]
+score_rf = roc_auc_score(y_train, predictions_train_rf)
+print("AUC of Random Forest Classifier is {0}".format(score_rf))
+
+scores_rf = cross_val_score(rf_clf, X_train, y_train, scoring='roc_auc', cv=5)
+mean_rf, std_rf = scores_rf.mean(), scores_rf.std()
+print("AUC of Random Forest Classifier by cross validation is {0:.3f} +- {1:.3f}".format(mean_rf, std_rf))
+
+# Gradient Boosting
+from sklearn.ensemble import GradientBoostingClassifier
+
+gb_clf = GradientBoostingClassifier()
+gb_clf.fit(X_train, y_train)
+
+predictions_train_gb = gb_clf.predict_proba(X_train)[:,1]
+score_gb = roc_auc_score(y_train, predictions_train_gb)
+print("AUC of Gradient Boosting Classifier is {0}".format(score_gb))
+
+scores_gb = cross_val_score(gb_clf, X_train, y_train, scoring='roc_auc', cv=5)
+mean_gb, std_gb = scores_gb.mean(), scores_gb.std()
+print("AUC of Random Forest Classifier by cross validation is {0:.3f} +- {1:.3f}".format(mean_gb, std_gb))
