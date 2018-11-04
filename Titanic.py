@@ -88,3 +88,16 @@ print("AUC of Gradient Boosting Classifier is {0}".format(score_gb))
 scores_gb = cross_val_score(gb_clf, X_train, y_train, scoring='roc_auc', cv=5)
 mean_gb, std_gb = scores_gb.mean(), scores_gb.std()
 print("AUC of Random Forest Classifier by cross validation is {0:.3f} +- {1:.3f}".format(mean_gb, std_gb))
+
+# Grid Search
+from sklearn.ensemble import GradientBoostingClassifier
+from sklearn.model_selection import GridSearchCV
+
+gb_clf = GradientBoostingClassifier(random_state = 0)
+grid_values = {'n_estimators': [1, 10, 100, 1000],'max_depth': [1, 2, 3, 4], 'learning_rate': [0.01, 0.1, 1]}
+
+grid_clf = GridSearchCV(gb_clf, param_grid = grid_values, scoring = 'roc_auc', cv=5)
+grid_clf.fit(X_train, y_train)
+
+print('Grid best parameter n_estimators: ', grid_clf.best_params_)
+print('Grid best AUC: ', grid_clf.best_score_)
